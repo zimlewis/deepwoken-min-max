@@ -2,7 +2,7 @@
   import { reactive, ref, watch, inject, onMounted } from 'vue';
   import axios from 'axios';
   import { useToast } from 'vue-toastification';
-  import TalentCard from '@/components/TalentCard.vue';
+  import TalentCard from '../components/TalentCard.vue';
 
   const toast = useToast();
 

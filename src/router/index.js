@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MinMaxView from '@/views/MinMaxView.vue'
-import Test from '@/views/Test.vue'
+import MinMaxView from '../views/MinMaxView.vue'
+import Test from '../views/Test.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
