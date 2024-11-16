@@ -26,7 +26,9 @@ Your talents you can change and get is shown in the second row <br />
 Enjoy your sastified changing your talents process after beating ethiron(or fight 100 ferrymen or mooneyes stone idk), if you have any problem, contact me via Discord: [zimlewis](http://discordapp.com/users/733486464947454034) <br />
 
 # Update-log
-*1.0*:
+*1.0.1*:
+ - Fixed import main.css
+*1.0.0*:
  - Hopefully being functional
 
 # To-do
