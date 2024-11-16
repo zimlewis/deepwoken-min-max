@@ -26,16 +26,23 @@ Your talents you can change and get is shown in the second row <br />
 Enjoy your sastified changing your talents process after beating ethiron(or fight 100 ferrymen or mooneyes stone idk), if you have any problem, contact me via Discord: [zimlewis](http://discordapp.com/users/733486464947454034) <br />
 
 # Update-log
+*1.0.4*: <br />
+ - Fixed quest, oath, equipment and origin talents being considered as common talent in build's talents and character's talents. <br />
+ - Added responsive for, hopefully supported mobile device.
+ - changed remove talent button.
+
 *1.0.3*:
- - Relize I did not build for production, hopefully fixed
+ - Relize I did not build for production, hopefully fixed. <br />
+
 *1.0.2*:
- - Turn out it has error because I use import .. from '@/..', changed to relative part, hopefully fixed
+ - Turn out it has error because I use import .. from '@/..', changed to relative part, hopefully fixed. <br />
+
 *1.0.1*:
- - Fixed import main.css
+ - Fixed import main.css. <br />
+
 *1.0.0*:
- - Hopefully being functional
+ - Hopefully being functional. <br />
 
 # To-do
  - Hopefully gui to look more like deepwoken, not guarantee, I'm a mere backend developer who learnt Vue as a subject in school and decided to make this instead of doing my assignment. <br />
- - Fix quest, oath, equipment and origin talents being considered as common talent in build's talents and character's talents <br />
 

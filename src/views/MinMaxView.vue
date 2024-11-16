@@ -120,7 +120,7 @@
         </form>
       </div>
     </div>
-    <div class="px-40 py-8 mb-4 rounded-md m-auto md:m-0 grid grid-cols-2 auto-rows-[500px]">
+    <div class="lg:px-40 md:px-0 sm:px-0 py-8 mb-4 rounded-md m-auto grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 auto-rows-[500px]">
         <div class="bg-neutral-100 border-2 rounded-xl p-2 m-2 flex flex-col">
           <h5>Talents from build</h5>
           <ul class="h-100 overflow-y-auto">
@@ -138,7 +138,7 @@
           <h5>To change</h5>
           <ul class="h-100 overflow-y-auto">
             <TalentCard v-for="(card, index) in talents.toChange" :card-rarity="allTalentsRarity[card.toLowerCase()]" :card-title="card">
-              <button  @click="removeTalent('toChange', index)">x</button>
+              <button  @click="removeTalent('toChange', index)" class="mx-auto px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">x</button>
             </TalentCard>
           </ul>
         </div>
@@ -146,7 +146,7 @@
           <h5>To get</h5>
           <ul class="h-100 overflow-y-auto">
             <TalentCard v-for="(card, index) in talents.toGet" :card-rarity="allTalentsRarity[card.toLowerCase()]" :card-title="card">
-              <button @click="removeTalent('toGet', index)">x</button>
+              <button @click="removeTalent('toGet', index)" class="mx-auto px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">x</button>
             </TalentCard>
           </ul>
         </div>
