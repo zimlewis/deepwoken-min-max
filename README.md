@@ -26,10 +26,13 @@ Your talents you can change and get is shown in the second row <br />
 Enjoy your sastified changing your talents process after beating ethiron(or fight 100 ferrymen or mooneyes stone idk), if you have any problem, contact me via Discord: [zimlewis](http://discordapp.com/users/733486464947454034) <br />
 
 # Update-log
+*1.0.5*: <br />
+ - Build link title wrong since I was using a templates <br />
+
 *1.0.4*: <br />
  - Fixed quest, oath, equipment and origin talents being considered as common talent in build's talents and character's talents. <br />
- - Added responsive for, hopefully supported mobile device.
- - changed remove talent button.
+ - Added responsive for, hopefully supported mobile device. <bt />
+ - changed remove talent button. <br />
 
 *1.0.3*:
  - Relize I did not build for production, hopefully fixed. <br />

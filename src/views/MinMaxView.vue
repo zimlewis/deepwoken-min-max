@@ -105,7 +105,7 @@
       <div class="px-6 py-8 mb-4 rounded-md shadow-md bg-white m-auto md:m-0">
         <form @submit.prevent="getBuild" class="m-auto">
           <div class="mb-4">
-            <label for="builderlink" class="block text-gray-700 font-bold mb-2">Job Listing Name</label>
+            <label for="builderlink" class="block text-gray-700 font-bold mb-2">Builder link</label>
             <input v-model="form.buildLink" type="text" id="builderlink" name="builderlink" class="border rounded w-full py-2 px-3 mb-2" placeholder="" required />
           </div>
           <div class="mb-4">
