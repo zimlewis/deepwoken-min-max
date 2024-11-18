@@ -21,7 +21,7 @@
 
   onMounted(async () => {
     try {
-      toast.info('loading fata');
+      toast.info('loading data');
       const result = await axios.get(`${API}/get?type=all`);
       const data = result.data;
       allTalentsFull.value = data['talents'];
@@ -45,7 +45,7 @@
 
       console.log(allTalents.value);
 
-      
+
 
       toast.success('loaded data');
 
