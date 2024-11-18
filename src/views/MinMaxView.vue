@@ -11,39 +11,47 @@
     buildDeepwoken: '',
   });
 
+  const API = inject("api");
+
+  const allTalentsFull = ref({});
   const allTalents = ref({});
-  const allTalentsRarity = ref({});
+  const allCategory = ref({});
 
   const success = ref({});
 
   onMounted(async () => {
     try {
-      toast.info('loading talents');
-      const result = await axios.get('https://api.deepwoken.co/get?type=talent&name=all');
-      allTalents.value = result.data;
-      allTalentsRarity.value = Object.entries(allTalents.value).reduce((acc, [key, value]) => {
+      toast.info('loading fata');
+      const result = await axios.get(`${API}/get?type=all`);
+      const data = result.data;
+      allTalentsFull.value = data['talents'];
+      allTalents.value = Object.entries(allTalentsFull.value).reduce((acc, [key, value]) => {
         // Normalize the key name by removing the suffix
         const normalizedKey = key.split(" [")[0];
 
         // Add or merge the entry
-        if (!acc[normalizedKey]) {
-          acc[normalizedKey] = value.rarity.toLowerCase(); // Convert rarity to lowercase
+        if (acc[normalizedKey]) {
+          return acc;
         }
+        acc[normalizedKey] = {
+          rarity: value.rarity.toLowerCase(),
+          category: value.category.toLowerCase()
+        }; // Convert rarity to lowercase
 
         return acc;
       }, {});
 
-      console.log(allTalentsRarity.value);
-      success.value = true;
-      toast.success('loaded talents');
-    }
-    catch (error) {
-      success.value = false;
-      console.log(error);
-      toast.error('failed to load talents');
-    }
-    finally {
+      allCategory.value = data['mystics'];
 
+      console.log(allTalents.value);
+
+      
+
+      toast.success('loaded data');
+
+    }
+    catch (err) {
+      toast.info('failed to load data')
     }
   })
 
@@ -62,24 +70,61 @@
   const build = ref({});
 
   watch([talents.build, talents.deepwoken], () => {
-    talents.toGet = talents.build.filter(x => (!talents.deepwoken.includes(x) && ['common', 'rare', 'advanced'].includes(allTalentsRarity.value[x.toLowerCase()])));
-    talents.toChange = talents.deepwoken.filter(x => (!talents.build.includes(x) && ['common', 'rare', 'advanced'].includes(allTalentsRarity.value[x.toLowerCase()])));
+    talents.toGet = talents.build.filter((x) => {
+      // x => (!talents.deepwoken.includes(x) && ['common', 'rare', 'advanced'].includes(allTalents.value[x.toLowerCase()].rarity))
+      let result = true;
+      if (!allTalents.value[x.toLowerCase()]) {
+        return false;
+      }
+      if (talents.deepwoken.includes(x)) {
+        result = false;
+      }
+      if (!['common', 'rare', 'advanced'].includes(allTalents.value[x.toLowerCase()].rarity)) {
+        result = false;
+      }
+
+      return result;
+    });
+    talents.toChange = talents.deepwoken.filter((x) => {
+      let result = true;
+      if (!allTalents.value[x.toLowerCase()]) {
+        return false;
+      }
+      if (talents.build.includes(x)) {
+        result = false;
+      }
+      if (!['common', 'rare', 'advanced'].includes(allTalents.value[x.toLowerCase()].rarity)) {
+        result = false;
+      }
+
+      return result;
+    });
   })
 
   const getBuild = async () => {
     const buildId = form.buildLink.substring(form.buildLink.length - 8, form.buildLink.length);
     const deewpokenBuildTalentString = form.buildDeepwoken.substring(form.buildDeepwoken.indexOf('== TALENTS ==') + '== TALENTS ==\n'.length, form.buildDeepwoken.length);
     talents.deepwoken = deewpokenBuildTalentString.split('\n')
+
+    for(let [index, talent] of talents.deepwoken.entries()) {
+      if (!allTalents.value[talent.toLowerCase()]) {
+        removeTalent('deepwoken', index);
+      }
+    }
     try {
       state.isLoading = true;
       toast.info('Loading build...');
-      const resp = await axios.get(`https://api.deepwoken.co/build?id=${buildId}`);
+      const resp = await axios.get(`${API}/build?id=${buildId}`);
       build.value = resp.data;
 
 
       for(let talent of build.value.talents) {
         if (talent.indexOf('[') !== -1){
           talent = talent.substring(0, talent.indexOf('[')).trim();
+        }
+
+        if (!allTalents.value[talent.toLowerCase()]) {
+          removeTalent('build', index);
         }
 
         talents.build.push(talent);
@@ -124,20 +169,20 @@
         <div class="bg-neutral-100 border-2 rounded-xl p-2 m-2 flex flex-col">
           <h5>Talents from build</h5>
           <ul class="h-100 overflow-y-auto">
-            <TalentCard v-for="card in talents.build" :card-rarity="allTalentsRarity[card.toLowerCase()]" :card-title="card" />
+            <TalentCard v-for="card in talents.build" :card-rarity="allTalents[card.toLowerCase()].rarity" :card-title="card" />
           </ul>
         </div>
 
         <div class="bg-neutral-100 border-2 rounded-xl p-2 m-2 flex flex-col">
           <h5>Talents from deepwoken</h5>
           <ul class="h-100 overflow-y-auto">
-            <TalentCard v-for="card in talents.deepwoken" :card-rarity="allTalentsRarity[card.toLowerCase()]" :card-title="card" />
+            <TalentCard v-for="card in talents.deepwoken" :card-rarity="allTalents[card.toLowerCase()].rarity" :card-title="card" />
           </ul>
         </div>
         <div class="bg-neutral-100 border-2 rounded-xl p-2 m-2 flex flex-col">
           <h5>To change</h5>
           <ul class="h-100 overflow-y-auto">
-            <TalentCard v-for="(card, index) in talents.toChange" :card-rarity="allTalentsRarity[card.toLowerCase()]" :card-title="card">
+            <TalentCard v-for="(card, index) in talents.toChange" :card-rarity="allTalents[card.toLowerCase()].rarity" :card-title="card">
               <button  @click="removeTalent('toChange', index)" class="mx-auto px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">x</button>
             </TalentCard>
           </ul>
@@ -145,7 +190,7 @@
         <div class="bg-neutral-100 border-2 rounded-xl p-2 m-2 flex flex-col">
           <h5>To get</h5>
           <ul class="h-100 overflow-y-auto">
-            <TalentCard v-for="(card, index) in talents.toGet" :card-rarity="allTalentsRarity[card.toLowerCase()]" :card-title="card">
+            <TalentCard v-for="(card, index) in talents.toGet" :card-rarity="allTalents[card.toLowerCase()].rarity" :mystic="allCategory[allTalents[card.toLowerCase()].category]" :card-title="card">
               <button @click="removeTalent('toGet', index)" class="mx-auto px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">x</button>
             </TalentCard>
           </ul>
