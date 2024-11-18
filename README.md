@@ -22,11 +22,16 @@ Your talents from your build and character is shown in the first row <br />
 Your talents you can change and get is shown in the second row <br />
 ![to get and to change talents](src/assets/tut-talents-get-change.png) <br />
 ![remove talent](src/assets/remove_talents.png) <br />
+You can click on a talent's title to view said talent's mystic <br />
+![click talent](src/assets/click_to_mystic.png) <br />
 ![mystic](src/assets/mystic.png) <br />
 
 Enjoy your sastified changing your talents process after beating ethiron(or fight 100 ferrymen or mooneyes stone idk), if you have any problem, contact me via Discord: [zimlewis](http://discordapp.com/users/733486464947454034) <br />
 
 # Update-log
+*1.0.7*: <br />
+ - Fixed some gui bugs
+
 *1.0.6*: <br />
  - Added mystic <br />
  - Changed data structure a bit <br />

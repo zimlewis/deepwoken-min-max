@@ -35,12 +35,9 @@ const toggleModal = () => {
 </script>
 
 <template>
-  <li class="p-2 rounded bg-[#1c1c1c] my-3 grid grid-cols-7">
-    <span :class="['col-span-4', rarityColor[cardRarity]]">{{ cardTitle }}</span>
+  <li class="p-2 rounded bg-[#1c1c1c] my-3 grid grid-cols-6">
+    <div @click="toggleModal" :class="['col-span-4', 'hover:font-bold', 'cursor-pointer', rarityColor[cardRarity]]">{{ cardTitle }}</div>
     <span :class="['col-span-1', rarityColor[cardRarity]]">{{ cardRarity }}</span>
-    <button @click="toggleModal" v-if="mystic"
-      class="col-span-1 mx-auto px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">...</button>
-    <span v-else class="col-span-1"></span>
     <slot class="col-span-1"></slot>
   </li>
   <Teleport to="#modal">
@@ -52,7 +49,7 @@ const toggleModal = () => {
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Mystic
+                    Mystic for <span :class="rarityColor[cardRarity]">{{ cardTitle }}</span>
                 </h3>
                 <button @click="toggleModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -73,6 +70,5 @@ const toggleModal = () => {
         </div>
     </div>
     </div>
-
   </Teleport>
 </template>

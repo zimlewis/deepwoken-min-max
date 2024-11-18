@@ -51,7 +51,7 @@
 
     }
     catch (err) {
-      toast.info('failed to load data')
+      toast.error('failed to load data')
     }
   })
 
