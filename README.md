@@ -1,7 +1,4 @@
-<div align="center">
-    <h2>dwapi-wrapper</h2>
-    <hr>
-</div>
+
 
 # About
 This is deepwoken build min-maxer using Cyfer's deepwoken api.
